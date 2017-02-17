@@ -1,0 +1,22 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+HOME=/
+
+# For details see man 4 crontabs
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name command to be executed
+
+@reboot root /bin/su - root -c /opt/S3update/S3update.sh
+@reboot root /bin/su - root -c /opt/iptune/iptune.sh
+@reboot  /usr/local/spark/stage/spark-2.0.0-bin-hadoop2.7/start.sh
+@reboot  /root/cassandra/startcassandra.sh
+@reboot root /bin/su - root -c ssh -g -i /home/schillerr/.ssh/schillerr.rx-elssie.save/SCHILLERR-REAXYS-ELSSIE-USR.pem -L 55432:quetzal:5432 -N schillerr@elssie-gnome-bastion.internal
+#*/1 * * * * /root/spark/sbin/start-all.sh
